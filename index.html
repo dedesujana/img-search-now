@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Image Search App</title>
+    <title>Image Search App - Neon Glass</title>
 
-    <!-- Link ke CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,8 +20,13 @@
 
     <button onclick="login()">Login</button>
 
-    <p>No account? <span onclick="showCreate()" class="link">Create Account</span></p>
-    <p>Or continue as <span onclick="guest()" class="link">Guest</span></p>
+    <p>No account?
+        <span onclick="showCreate()" class="link">Create Account</span>
+    </p>
+
+    <p>Or continue as
+        <span onclick="guest()" class="link">Guest</span>
+    </p>
 </div>
 
 <!-- =============================
@@ -34,7 +39,10 @@
     <input id="create-pass" type="password" placeholder="New Password">
 
     <button onclick="createAccount()">Create</button>
-    <p><span onclick="showLogin()" class="link">Back to Login</span></p>
+
+    <p>
+        <span onclick="showLogin()" class="link">Back to Login</span>
+    </p>
 </div>
 
 <!-- =============================
@@ -49,7 +57,15 @@
             LOBBY PAGE
 ================================ -->
 <div id="lobby" class="page hidden">
-    
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <span id="top-username" class="profile-btn" onclick="openProfile()">
+            User
+        </span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
     <!-- ADMIN PANEL -->
     <div id="admin-panel" class="admin-box hidden">
         <h2>Admin Panel</h2>
@@ -58,6 +74,11 @@
         <input id="ban-reason" placeholder="Reason">
 
         <button onclick="banUser()">Ban User</button>
+
+        <hr>
+
+        <input id="unban-user" placeholder="Unban username">
+        <button onclick="unbanUser()">Unban User</button>
     </div>
 
     <h1>Image Search</h1>
@@ -65,15 +86,47 @@
     <input id="search-box" placeholder="Search image">
     <button onclick="searchImage()">Search</button>
 
-    <!-- DRAG DROP UPLOAD -->
+    <!-- Upload Section -->
+    <h3>Upload Image</h3>
+
+    <input type="file" id="file-input" onchange="uploadFromInput()">
+
     <div id="drop-zone">Drag & Drop Image Here</div>
+
     <img id="preview" class="hidden">
 
     <!-- SEARCH RESULTS -->
     <div id="results"></div>
+
+    <button class="profile-open" onclick="openProfile()">Open Profile</button>
 </div>
 
-<!-- Link JS -->
+<!-- =============================
+          PROFILE PAGE
+================================ -->
+<div id="profile-page" class="page hidden">
+
+    <div class="top-bar">
+        <span class="profile-btn" onclick="openLobby()">← Back</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <h1>Profile</h1>
+
+    <img id="profile-avatar" class="avatar">
+
+    <h2 id="profile-name"></h2>
+    <p id="profile-joined"></p>
+    <p id="profile-uploads"></p>
+
+    <h3>Your Gallery</h3>
+
+    <div id="profile-gallery"></div>
+
+</div>
+
+
+<!-- JS -->
 <script src="script.js"></script>
 
 </body>
