@@ -2,69 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Image Search App</title>
+    <title>Image App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ==========================================
-                 LOGIN PAGE
-========================================== -->
+<!-- ==========================
+        LOGIN PAGE
+=========================== -->
 <div id="login-page" class="page">
     <h1>Login</h1>
 
-    <input id="login-user" placeholder="Username"><br>
-    <input id="login-pass" type="password" placeholder="Password"><br>
+    <input id="login-user" placeholder="Username">
+    <input id="login-pass" type="password" placeholder="Password">
 
-    <button onclick="login()">Login</button><br>
-    <button onclick="guest()">Continue as Guest</button><br>
+    <button onclick="login()">Login</button>
+    <button onclick="guest()">Continue as Guest</button>
     <button onclick="showCreate()">Create Account</button>
 </div>
 
-
-<!-- ==========================================
-             CREATE ACCOUNT PAGE
-========================================== -->
+<!-- ==========================
+     CREATE ACCOUNT PAGE
+=========================== -->
 <div id="create-page" class="page hidden">
     <h1>Create Account</h1>
 
-    <input id="create-user" placeholder="New Username"><br>
-    <input id="create-pass" type="password" placeholder="New Password"><br>
+    <input id="create-user" placeholder="Username">
+    <input id="create-pass" type="password" placeholder="Password">
 
-    <button onclick="createAccount()">Create</button><br>
+    <button onclick="createAccount()">Create</button>
     <button onclick="showLogin()">Back</button>
 </div>
 
-
-<!-- ==========================================
-                BANNED PAGE
-========================================== -->
+<!-- ==========================
+        BANNED PAGE
+=========================== -->
 <div id="banned-page" class="page hidden">
-    <h1>You Are Banned</h1>
+    <h1>Banned</h1>
     <p id="ban-msg"></p>
     <button onclick="showLogin()">Back</button>
 </div>
 
-
-<!-- ==========================================
-                   LOBBY
-========================================== -->
+<!-- ==========================
+           LOBBY
+=========================== -->
 <div id="lobby" class="page hidden">
     <h1>Lobby</h1>
 
     <p>Logged in as: <b id="top-username"></b></p>
 
-    <!-- Admin Panel Button -->
-    <button onclick="show('admin-page')" id="admin-panel" class="hidden">
-        Admin Panel
-    </button>
+    <!-- ADMIN BUTTON (boy only) -->
+    <button id="admin-panel" class="hidden" onclick="show('admin-page')">Admin Panel</button>
 
-    <!-- Upload Area -->
+    <!-- UPLOAD -->
     <h2>Upload Image</h2>
-    <div id="drop-zone" class="drop-zone">
-        Drag & Drop image here
-    </div>
+    <div id="drop-zone" class="drop-zone">Drag & Drop image here</div>
 
     <input type="file" id="file-input" onchange="uploadFromInput()">
 
@@ -72,6 +64,7 @@
 
     <hr>
 
+    <!-- SEARCH -->
     <h2>Search Images</h2>
     <input id="search-box" placeholder="Search...">
     <button onclick="searchImage()">Search</button>
@@ -80,14 +73,13 @@
 
     <hr>
 
-    <button onclick="openProfile()">My Profile</button><br>
+    <button onclick="openProfile()">My Profile</button>
     <button onclick="logout()">Logout</button>
 </div>
 
-
-<!-- ==========================================
-                 ADMIN PAGE
-========================================== -->
+<!-- ==========================
+        ADMIN PAGE
+=========================== -->
 <div id="admin-page" class="page hidden">
     <h1>Admin Panel</h1>
 
@@ -104,10 +96,9 @@
     <button onclick="show('lobby')">Back</button>
 </div>
 
-
-<!-- ==========================================
-               PROFILE PAGE
-========================================== -->
+<!-- ==========================
+       PROFILE PAGE
+=========================== -->
 <div id="profile-page" class="page hidden">
     <h1>Profile</h1>
 
@@ -121,11 +112,9 @@
     <button onclick="show('lobby')">Back</button>
 </div>
 
-
-
-<!-- ==========================================
-                SCRIPT FILE
-========================================== -->
+<!-- ==========================
+           SCRIPT
+=========================== -->
 <script src="script.js"></script>
 
 </body>
