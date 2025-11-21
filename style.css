@@ -1,220 +1,210 @@
-/* ============================
-        GLOBAL STYLE
-============================ */
+/* ==========================================
+            GLOBAL + DARK MODE
+========================================== */
+
+:root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --text: #e6edf3;
+    --accent: #00e5ff;
+    --danger: #ff3b3b;
+    --success: #5aff5a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
 body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Poppins", sans-serif;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0a0f24, #111c44, #0e1b30);
-    background-size: 400% 400%;
-    animation: neonBG 15s ease infinite;
-    color: white;
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@keyframes neonBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.page {
-    display: none;
-    width: 90%;
-    max-width: 450px;
-    padding: 25px;
-    border-radius: 22px;
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.07);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,120,255,0.4);
+    padding: 0;
     animation: fadeIn 0.5s ease;
 }
 
-.active {
+.page {
+    padding: 25px;
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.hidden {
+    display: none !important;
 }
 
-h1, h2 {
-    text-shadow: 0 0 12px rgba(0,150,255,0.8);
+/* Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+                HEADERS / TITLES
+========================================== */
+
+h1, h2, h3 {
+    text-align: center;
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
     letter-spacing: 1px;
 }
 
-/* ============================
-            INPUTS
-============================ */
+/* ==========================================
+                   INPUTS
+========================================== */
+
 input {
     width: 90%;
-    padding: 14px;
-    margin: 10px 0;
-    border-radius: 12px;
-    border: none;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    backdrop-filter: blur(6px);
     outline: none;
-    font-size: 16px;
-    background: rgba(255,255,255,0.14);
-    color: white;
-    backdrop-filter: blur(3px);
-    transition: 0.2s;
+    transition: 0.25s;
 }
 
 input:focus {
-    border: 1px solid #3cbaff;
-    box-shadow: 0 0 8px #3cbaff;
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
 }
 
-/* ============================
-            BUTTONS
-============================ */
+/* ==========================================
+                    BUTTONS
+========================================== */
+
 button {
-    padding: 14px;
     width: 90%;
+    padding: 12px;
     margin: 10px 0;
-    border-radius: 12px;
     border: none;
-    cursor: pointer;
-    background: rgba(0,120,255,0.3);
-    color: white;
-    font-size: 17px;
+    border-radius: 12px;
     font-weight: bold;
-    transition: 0.2s;
-    box-shadow: 0 0 16px rgba(0,150,255,0.3);
+    cursor: pointer;
+    font-size: 16px;
+    background: var(--accent);
+    color: black;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background: rgba(0,120,255,0.6);
-    transform: scale(1.03);
-    box-shadow: 0 0 22px rgba(0,150,255,0.7);
+    background: white;
+    box-shadow: 0 0 20px var(--accent);
+    transform: translateY(-3px);
 }
 
-/* ============================
-       LINKS & TEXT
-============================ */
-.link {
-    text-decoration: underline;
-    cursor: pointer;
-    color: #7fbfff;
+#admin-panel {
+    background: #ff00aa;
+    color: white;
 }
 
-/* ============================
-          DROP ZONE
-============================ */
-#drop-zone {
-    width: 100%;
-    height: 180px;
-    border: 2px dashed rgba(0,150,255,0.6);
-    border-radius: 16px;
-    margin-top: 15px;
-    line-height: 180px;
-    font-size: 18px;
-    background: rgba(255,255,255,0.07);
+#admin-panel:hover {
+    background: #ff44cc;
+    box-shadow: 0 0 20px #ff00aa;
+}
+
+/* ==========================================
+               DROP ZONE (UPLOAD)
+========================================== */
+
+.drop-zone {
+    border: 2px dashed var(--accent);
+    padding: 30px;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
+    border-radius: 12px;
+    color: var(--accent);
+    background: rgba(0, 229, 255, 0.08);
+    animation: glow 2s infinite alternate ease-in-out;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 8px var(--accent); }
+    to   { box-shadow: 0 0 20px var(--accent); }
+}
+
+.upload-preview {
+    width: 50%;
+    margin: 15px auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* ==========================================
+                SEARCH RESULTS
+========================================== */
+
+#results > div {
+    background: var(--card);
+    padding: 18px;
+    border-radius: 12px;
+    margin: 15px 0;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
     transition: 0.3s;
 }
 
-#drop-zone:hover {
-    border-color: #3cbaff;
-    box-shadow: 0 0 14px rgba(0,150,255,0.8);
-    transform: scale(1.02);
-}
-
-#preview {
-    width: 220px;
-    margin-top: 20px;
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(0,150,255,0.8);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ============================
-       RESULTS & GALLERY
-============================ */
 #results img {
-    width: 260px;
-    margin-top: 20px;
-    border-radius: 14px;
-    animation: pop 0.3s ease;
-    box-shadow: 0 0 20px rgba(0,150,255,0.5);
+    width: 180px;
+    border-radius: 12px;
+    margin-top: 10px;
 }
 
-@keyframes pop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+#results > div:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px var(--accent);
 }
 
-/* PROFILE GALLERY */
-#profile-gallery {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+/* ==========================================
+                 PROFILE PAGE
+========================================== */
+
+.profile-avatar {
+    width: 120px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+}
+
+#profile-gallery > div {
+    background: var(--card);
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    transition: 0.3s;
 }
 
 #profile-gallery img {
-    width: 100%;
+    width: 160px;
     border-radius: 12px;
-    box-shadow: 0 0 14px rgba(0,150,255,0.5);
-    transition: 0.2s;
+    box-shadow: 0 0 15px var(--accent);
 }
 
-#profile-gallery img:hover {
-    transform: scale(1.05);
+#profile-gallery > div:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px var(--accent);
 }
 
-/* ============================
-       PROFILE AVATAR
-============================ */
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 0 18px rgba(0,150,255,0.7);
-    margin-bottom: 10px;
+/* ==========================================
+            ADMIN PAGE CARD STYLE
+========================================== */
+
+#admin-page input {
+    background: rgba(255, 0, 128, 0.05);
+    border: 1px solid #ff0088;
 }
 
-/* ============================
-         TOP BAR
-============================ */
-.top-bar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+#admin-page button {
+    background: #ff0088;
 }
 
-.profile-btn {
-    cursor: pointer;
-    font-size: 18px;
-    color: #bcdcff;
-    text-shadow: 0 0 6px rgba(0,150,255,0.8);
-}
-
-.logout-btn {
-    width: fit-content;
-}
-
-/* ============================
-       ADMIN PANEL
-============================ */
-.admin-box {
-    padding: 16px;
-    border-radius: 14px;
-    margin-bottom: 15px;
-    background: rgba(255,0,0,0.1);
-    border: 1px solid rgba(255,0,0,0.4);
-    box-shadow: 0 0 18px rgba(255,0,0,0.4);
-}
-
-/* ============================
-           HIDING
-============================ */
-.hidden {
-    display: none;
+#admin-page button:hover {
+    background: #ff33aa;
+    box-shadow: 0 0 20px #ff0088;
 }
