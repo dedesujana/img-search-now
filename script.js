@@ -1,6 +1,6 @@
-/* ==========================================
-               DATABASE
-========================================== */
+/* =====================================================
+                    DATABASE
+===================================================== */
 
 let users = {
     "boy": {
@@ -12,25 +12,25 @@ let users = {
     }
 };
 
-let images = []; 
+let images = [];      
 let currentUser = null;
 
-/* ==========================================
-               PAGE SWITCH
-========================================== */
+/* =====================================================
+                    PAGE SWITCH
+===================================================== */
 
 function show(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
     document.getElementById(page).classList.remove("hidden");
 }
 
-/* ==========================================
-              LOGIN SYSTEM
-========================================== */
+/* =====================================================
+                    LOGIN SYSTEM
+===================================================== */
 
 function login() {
-    let u = loginUser.value;
-    let p = loginPass.value;
+    let u = document.getElementById("login-user").value;
+    let p = document.getElementById("login-pass").value;
 
     if (!users[u] || users[u].pass !== p) {
         alert("Wrong username or password!");
@@ -39,7 +39,8 @@ function login() {
 
     if (users[u].banned) {
         show("banned-page");
-        banMsg.innerHTML = `You are banned.<br>Reason: <b>${users[u].reason}</b>`;
+        document.getElementById("ban-msg").innerHTML =
+            `You are banned.<br>Reason: <b>${users[u].reason}</b>`;
         return;
     }
 
@@ -52,13 +53,13 @@ function guest() {
     openLobby();
 }
 
-/* ==========================================
-            CREATE ACCOUNT
-========================================== */
+/* =====================================================
+                CREATE ACCOUNT
+===================================================== */
 
 function createAccount() {
-    let u = createUser.value;
-    let p = createPass.value;
+    let u = document.getElementById("create-user").value;
+    let p = document.getElementById("create-pass").value;
 
     if (!u || !p) {
         alert("All fields required!");
@@ -82,63 +83,74 @@ function createAccount() {
     show("login-page");
 }
 
-/* ==========================================
-                LOBBY (FIXED)
-========================================== */
+function showCreate() { show("create-page"); }
+function showLogin() { show("login-page"); }
+
+/* =====================================================
+                     LOBBY
+===================================================== */
 
 function openLobby() {
     show("lobby");
-    topUsername.innerText = currentUser;
+    document.getElementById("top-username").innerText = currentUser;
 
-    adminPanel.classList.toggle("hidden", currentUser !== "boy");
+    // only admin
+    if (currentUser === "boy") {
+        document.getElementById("admin-panel").classList.remove("hidden");
+    } else {
+        document.getElementById("admin-panel").classList.add("hidden");
+    }
 }
 
-/* ==========================================
-                LOGOUT
-========================================== */
+/* =====================================================
+                     LOGOUT
+===================================================== */
 
 function logout() {
     currentUser = null;
     show("login-page");
 }
 
-/* ==========================================
-                ADMIN PANEL
-========================================== */
+/* =====================================================
+                 ADMIN SYSTEM
+===================================================== */
 
 function banUser() {
-    let u = banUserInput.value;
-    let r = banReason.value;
+    let user = document.getElementById("ban-user").value;
+    let reason = document.getElementById("ban-reason").value;
 
-    if (!users[u]) return alert("User not found!");
+    if (!users[user]) return alert("User not found!");
 
-    users[u].banned = true;
-    users[u].reason = r || "No reason";
+    users[user].banned = true;
+    users[user].reason = reason || "No reason";
 
-    alert("User banned.");
+    alert(`User "${user}" has been banned.`);
 }
 
 function unbanUser() {
-    let u = unbanUserInput.value;
+    let user = document.getElementById("unban-user").value;
 
-    if (!users[u]) return alert("User not found!");
+    if (!users[user]) return alert("User not found!");
 
-    users[u].banned = false;
-    users[u].reason = "";
+    users[user].banned = false;
+    users[user].reason = "";
 
-    alert("User unbanned.");
+    alert(`User "${user}" was unbanned.`);
 }
 
-/* ==========================================
-              SEARCH FIX (NO DELETE)
-========================================== */
+/* =====================================================
+                   SEARCH IMAGE
+===================================================== */
 
 function searchImage() {
-    let q = searchBox.value.toLowerCase().trim();
-    let container = results;
+    let q = document.getElementById("search-box").value.toLowerCase();
+    let container = document.getElementById("results");
+
     container.innerHTML = "";
 
-    let filtered = q === "" ? images : images.filter(img => img.title.toLowerCase().includes(q));
+    let filtered = images.filter(img =>
+        img.title.toLowerCase().includes(q)
+    );
 
     if (filtered.length === 0) {
         container.innerHTML = "<p>No images found.</p>";
@@ -146,51 +158,55 @@ function searchImage() {
     }
 
     filtered.forEach(img => {
-        container.innerHTML += `
-            <div class="image-card">
-                <h3 onclick="editTitle(this, '${img.id}')">${img.title}</h3>
-                <p>By: <b>${img.owner}</b></p>
-                <img src="${img.url}">
-                <button onclick="deleteImage('${img.id}')">Delete</button>
-            </div>
+        let el = document.createElement("div");
+
+        el.innerHTML = `
+            <h3 class="editable" onclick="editTitle(this, '${img.id}')">${img.title}</h3>
+            <p>By: <b>${img.owner}</b></p>
+            <img src="${img.url}">
+            ${
+                currentUser === img.owner || currentUser === "boy"
+                ? `<button onclick="deleteImage('${img.id}')">Delete</button>`
+                : ""
+            }
         `;
+
+        container.appendChild(el);
     });
 }
 
-/* ==========================================
-        UPLOAD — DRAG & DROP (FIXED)
-========================================== */
+/* =====================================================
+        UPLOAD IMAGE — DRAG & DROP
+===================================================== */
 
-dropZone.addEventListener("dragover", e => e.preventDefault());
+let drop = document.getElementById("drop-zone");
+let preview = document.getElementById("preview");
 
-dropZone.addEventListener("drop", e => {
+drop.addEventListener("dragover", (e) => e.preventDefault());
+
+drop.addEventListener("drop", (e) => {
     e.preventDefault();
 
-    if (currentUser === "guest") {
-        alert("Guest cannot upload!");
-        return;
-    }
+    if (currentUser === "guest") return alert("Guest cannot upload!");
 
     let file = e.dataTransfer.files[0];
     processImage(file);
 });
 
-/* ==========================================
-        UPLOAD VIA INPUT (FIXED)
-========================================== */
+/* =====================================================
+        UPLOAD IMAGE — FILE INPUT
+===================================================== */
 
 function uploadFromInput() {
-    let file = fileInput.files[0];
+    let file = document.getElementById("file-input").files[0];
     processImage(file);
 }
 
-/* ==========================================
-              IMAGE PROCESS
-========================================== */
+/* =====================================================
+                PROCESS IMAGE
+===================================================== */
 
 function processImage(file) {
-    if (!file) return;
-
     let reader = new FileReader();
 
     reader.onload = () => {
@@ -200,38 +216,37 @@ function processImage(file) {
         let id = "img_" + Date.now();
 
         images.push({
-            id,
+            id: id,
             title: "New Image",
             url: reader.result,
             owner: currentUser
         });
 
-        searchImage();
-        openProfile();
         alert("Image uploaded!");
+        openProfile(); // refresh
     };
 
     reader.readAsDataURL(file);
 }
 
-/* ==========================================
-              DELETE IMAGE
-========================================== */
+/* =====================================================
+                  DELETE IMAGE
+===================================================== */
 
 function deleteImage(id) {
     images = images.filter(img => img.id !== id);
-    searchImage();
     openProfile();
+    searchImage();
 }
 
-/* ==========================================
-             EDIT TITLE INLINE
-========================================== */
+/* =====================================================
+                EDIT TITLE INLINE
+===================================================== */
 
 function editTitle(el, id) {
     let old = el.innerText;
-    let input = document.createElement("input");
 
+    let input = document.createElement("input");
     input.value = old;
     input.style.width = "80%";
 
@@ -240,11 +255,13 @@ function editTitle(el, id) {
 
     input.addEventListener("keyup", e => {
         if (e.key === "Enter") {
+            let newTitle = input.value;
+
             let img = images.find(i => i.id === id);
-            img.title = input.value;
+            img.title = newTitle;
 
             input.replaceWith(el);
-            el.innerText = input.value;
+            el.innerText = newTitle;
 
             openProfile();
             searchImage();
@@ -252,31 +269,33 @@ function editTitle(el, id) {
     });
 }
 
-/* ==========================================
-              PROFILE PAGE FIX
-========================================== */
+/* =====================================================
+                     PROFILE
+===================================================== */
 
 function openProfile() {
-    if (currentUser === "guest") return alert("Guest has no profile!");
-
     show("profile-page");
 
     let u = users[currentUser];
+    if (!u) return;
 
-    profileName.innerText = currentUser;
-    profileJoined.innerText = "Joined: " + u.joined;
-    profileAvatar.src = u.avatar;
+    document.getElementById("profile-name").innerText = currentUser;
+    document.getElementById("profile-joined").innerText = "Joined: " + u.joined;
+    document.getElementById("profile-avatar").src = u.avatar;
 
-    let userImages = images.filter(img => img.owner === currentUser);
-    profileUploads.innerText = "Total uploads: " + userImages.length;
+    let gallery = document.getElementById("profile-gallery");
+    gallery.innerHTML = "";
 
-    profileGallery.innerHTML = "";
+    let myImages = images.filter(img => img.owner === currentUser);
 
-    userImages.forEach(img => {
-        profileGallery.innerHTML += `
+    document.getElementById("profile-uploads").innerText =
+        "Total uploads: " + myImages.length;
+
+    myImages.forEach(img => {
+        gallery.innerHTML += `
             <div>
                 <img src="${img.url}">
-                <p onclick="editTitle(this, '${img.id}')">${img.title}</p>
+                <p class="editable" onclick="editTitle(this, '${img.id}')">${img.title}</p>
                 <button onclick="deleteImage('${img.id}')">Delete</button>
             </div>
         `;
