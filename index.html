@@ -1,103 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>IMG Search</title>
+    <meta charset="UTF-8">
+    <title>Image Search App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ===================== LOGIN PAGE ===================== -->
-
+<!-- LOGIN PAGE -->
 <div id="login-page" class="page">
     <h1>Login</h1>
 
     <input id="login-user" placeholder="Username">
-    <input id="login-pass" placeholder="Password" type="password">
+    <input id="login-pass" type="password" placeholder="Password">
 
     <button onclick="login()">Login</button>
-    <button onclick="showCreate()">Create Account</button>
-    <button onclick="guest()">Continue as Guest</button>
+
+    <p>No account?
+        <span class="link" onclick="showCreate()">Create Account</span>
+    </p>
+    <p>
+        <span class="link" onclick="guest()">Continue as Guest</span>
+    </p>
 </div>
 
-<!-- ===================== CREATE ACCOUNT ===================== -->
 
+<!-- CREATE ACCOUNT PAGE -->
 <div id="create-page" class="page hidden">
     <h1>Create Account</h1>
 
-    <input id="create-user" placeholder="New username">
-    <input id="create-pass" placeholder="New password" type="password">
+    <input id="create-user" placeholder="New Username">
+    <input id="create-pass" type="password" placeholder="New Password">
 
     <button onclick="createAccount()">Create</button>
-    <button onclick="showLogin()">Back</button>
+
+    <p class="link" onclick="showLogin()">Back to login</p>
 </div>
 
-<!-- ===================== BANNED PAGE ===================== -->
 
+<!-- BANNED PAGE -->
 <div id="banned-page" class="page hidden">
-    <h1>You are Banned</h1>
+    <h1>You are banned</h1>
     <p id="ban-msg"></p>
+
+    <button onclick="showLogin()">Back to login</button>
 </div>
 
-<!-- ===================== LOBBY ===================== -->
 
+<!-- LOBBY -->
 <div id="lobby" class="page hidden">
     <h1>Welcome, <span id="top-username"></span></h1>
 
-    <input id="search-box" placeholder="Search image..." onkeyup="searchImage()">
-    <div id="results"></div>
-
-    <button onclick="openProfile()">Profile</button>
+    <button onclick="openProfile()">My Profile</button>
+    <button onclick="show('search-page')">Search Image</button>
     <button onclick="logout()">Logout</button>
 
-    <button id="admin-panel" class="hidden" onclick="show('admin-page')">Admin Panel</button>
+    <div id="admin-panel" class="hidden admin">
+        <h2>Admin Panel</h2>
+
+        <h3>Ban User</h3>
+        <input id="ban-user" placeholder="Username">
+        <input id="ban-reason" placeholder="Reason">
+        <button onclick="banUser()">BAN</button>
+
+        <h3>Unban User</h3>
+        <input id="unban-user" placeholder="Username">
+        <button onclick="unbanUser()">UNBAN</button>
+    </div>
 </div>
 
-<!-- ===================== UPLOAD PAGE ===================== -->
 
-<div id="upload-page" class="page hidden">
-    <h2>Upload Image</h2>
+<!-- SEARCH PAGE -->
+<div id="search-page" class="page hidden">
+    <h1>Search Images</h1>
 
-    <div id="drop-zone" class="drop-zone">Drag image here</div>
+    <input id="search-box" placeholder="Search image">
+    <button onclick="searchImage()">Search</button>
 
-    <input type="file" id="file-input" onchange="uploadFromInput()">
-    <img id="preview" class="upload-preview hidden">
+    <div id="drop-zone">Drag & Drop Image Here</div>
+    <input id="file-input" type="file" onchange="uploadFromInput()">
+    <img id="preview" class="hidden">
 
-    <button onclick="show('lobby')">Back</button>
+    <div id="results"></div>
+
+    <p class="link" onclick="openLobby()">Back</p>
 </div>
 
-<!-- ===================== PROFILE PAGE ===================== -->
 
+<!-- PROFILE PAGE -->
 <div id="profile-page" class="page hidden">
     <h1>Profile</h1>
 
-    <img id="profile-avatar" class="profile-avatar">
+    <img id="profile-avatar" width="120">
     <h2 id="profile-name"></h2>
     <p id="profile-joined"></p>
     <p id="profile-uploads"></p>
 
     <div id="profile-gallery"></div>
 
-    <button onclick="show('lobby')">Back</button>
+    <p class="link" onclick="openLobby()">Back</p>
 </div>
 
-<!-- ===================== ADMIN PAGE ===================== -->
-
-<div id="admin-page" class="page hidden">
-    <h1>Admin Panel</h1>
-
-    <input id="ban-user" placeholder="User to ban">
-    <input id="ban-reason" placeholder="Reason">
-
-    <button onclick="banUser()">Ban</button>
-
-    <input id="unban-user" placeholder="User to unban">
-    <button onclick="unbanUser()">Unban</button>
-
-    <button onclick="show('lobby')">Back</button>
-</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
