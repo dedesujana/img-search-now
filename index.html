@@ -1,104 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Image App</title>
+    <title>IMG Search</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- ==========================
-        LOGIN PAGE
-=========================== -->
+<!-- ===================== LOGIN PAGE ===================== -->
+
 <div id="login-page" class="page">
     <h1>Login</h1>
 
     <input id="login-user" placeholder="Username">
-    <input id="login-pass" type="password" placeholder="Password">
+    <input id="login-pass" placeholder="Password" type="password">
 
     <button onclick="login()">Login</button>
-    <button onclick="guest()">Continue as Guest</button>
     <button onclick="showCreate()">Create Account</button>
+    <button onclick="guest()">Continue as Guest</button>
 </div>
 
-<!-- ==========================
-     CREATE ACCOUNT PAGE
-=========================== -->
+<!-- ===================== CREATE ACCOUNT ===================== -->
+
 <div id="create-page" class="page hidden">
     <h1>Create Account</h1>
 
-    <input id="create-user" placeholder="Username">
-    <input id="create-pass" type="password" placeholder="Password">
+    <input id="create-user" placeholder="New username">
+    <input id="create-pass" placeholder="New password" type="password">
 
     <button onclick="createAccount()">Create</button>
     <button onclick="showLogin()">Back</button>
 </div>
 
-<!-- ==========================
-        BANNED PAGE
-=========================== -->
+<!-- ===================== BANNED PAGE ===================== -->
+
 <div id="banned-page" class="page hidden">
-    <h1>Banned</h1>
+    <h1>You are Banned</h1>
     <p id="ban-msg"></p>
-    <button onclick="showLogin()">Back</button>
 </div>
 
-<!-- ==========================
-           LOBBY
-=========================== -->
+<!-- ===================== LOBBY ===================== -->
+
 <div id="lobby" class="page hidden">
-    <h1>Lobby</h1>
+    <h1>Welcome, <span id="top-username"></span></h1>
 
-    <p>Logged in as: <b id="top-username"></b></p>
-
-    <!-- ADMIN BUTTON (boy only) -->
-    <button id="admin-panel" class="hidden" onclick="show('admin-page')">Admin Panel</button>
-
-    <!-- UPLOAD -->
-    <h2>Upload Image</h2>
-    <div id="drop-zone" class="drop-zone">Drag & Drop image here</div>
-
-    <input type="file" id="file-input" onchange="uploadFromInput()">
-
-    <img id="preview" class="hidden upload-preview">
-
-    <hr>
-
-    <!-- SEARCH -->
-    <h2>Search Images</h2>
-    <input id="search-box" placeholder="Search...">
-    <button onclick="searchImage()">Search</button>
-
+    <input id="search-box" placeholder="Search image..." onkeyup="searchImage()">
     <div id="results"></div>
 
-    <hr>
-
-    <button onclick="openProfile()">My Profile</button>
+    <button onclick="openProfile()">Profile</button>
     <button onclick="logout()">Logout</button>
+
+    <button id="admin-panel" class="hidden" onclick="show('admin-page')">Admin Panel</button>
 </div>
 
-<!-- ==========================
-        ADMIN PAGE
-=========================== -->
-<div id="admin-page" class="page hidden">
-    <h1>Admin Panel</h1>
+<!-- ===================== UPLOAD PAGE ===================== -->
 
-    <h3>Ban User</h3>
-    <input id="ban-user" placeholder="Username">
-    <input id="ban-reason" placeholder="Reason">
-    <button onclick="banUser()">Ban</button>
+<div id="upload-page" class="page hidden">
+    <h2>Upload Image</h2>
 
-    <h3>Unban User</h3>
-    <input id="unban-user" placeholder="Username">
-    <button onclick="unbanUser()">Unban</button>
+    <div id="drop-zone" class="drop-zone">Drag image here</div>
 
-    <br><br>
+    <input type="file" id="file-input" onchange="uploadFromInput()">
+    <img id="preview" class="upload-preview hidden">
+
     <button onclick="show('lobby')">Back</button>
 </div>
 
-<!-- ==========================
-       PROFILE PAGE
-=========================== -->
+<!-- ===================== PROFILE PAGE ===================== -->
+
 <div id="profile-page" class="page hidden">
     <h1>Profile</h1>
 
@@ -112,9 +81,22 @@
     <button onclick="show('lobby')">Back</button>
 </div>
 
-<!-- ==========================
-           SCRIPT
-=========================== -->
+<!-- ===================== ADMIN PAGE ===================== -->
+
+<div id="admin-page" class="page hidden">
+    <h1>Admin Panel</h1>
+
+    <input id="ban-user" placeholder="User to ban">
+    <input id="ban-reason" placeholder="Reason">
+
+    <button onclick="banUser()">Ban</button>
+
+    <input id="unban-user" placeholder="User to unban">
+    <button onclick="unbanUser()">Unban</button>
+
+    <button onclick="show('lobby')">Back</button>
+</div>
+
 <script src="script.js"></script>
 
 </body>
