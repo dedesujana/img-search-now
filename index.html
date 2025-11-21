@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Search App</title>
+
+    <!-- Link ke CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =============================
+            LOGIN PAGE
+================================ -->
+<div id="login-page" class="page active">
+    <h1>Login</h1>
+
+    <input id="login-user" placeholder="Username">
+    <input id="login-pass" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p>No account? <span onclick="showCreate()" class="link">Create Account</span></p>
+    <p>Or continue as <span onclick="guest()" class="link">Guest</span></p>
+</div>
+
+<!-- =============================
+        CREATE ACCOUNT PAGE
+================================ -->
+<div id="create-page" class="page hidden">
+    <h1>Create Account</h1>
+
+    <input id="create-user" placeholder="New Username">
+    <input id="create-pass" type="password" placeholder="New Password">
+
+    <button onclick="createAccount()">Create</button>
+    <p><span onclick="showLogin()" class="link">Back to Login</span></p>
+</div>
+
+<!-- =============================
+          BANNED PAGE
+================================ -->
+<div id="banned-page" class="page hidden">
+    <h1>You Are Banned</h1>
+    <p id="ban-msg"></p>
+</div>
+
+<!-- =============================
+            LOBBY PAGE
+================================ -->
+<div id="lobby" class="page hidden">
+    
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" class="admin-box hidden">
+        <h2>Admin Panel</h2>
+
+        <input id="ban-user" placeholder="Ban username">
+        <input id="ban-reason" placeholder="Reason">
+
+        <button onclick="banUser()">Ban User</button>
+    </div>
+
+    <h1>Image Search</h1>
+
+    <input id="search-box" placeholder="Search image">
+    <button onclick="searchImage()">Search</button>
+
+    <!-- DRAG DROP UPLOAD -->
+    <div id="drop-zone">Drag & Drop Image Here</div>
+    <img id="preview" class="hidden">
+
+    <!-- SEARCH RESULTS -->
+    <div id="results"></div>
+</div>
+
+<!-- Link JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
