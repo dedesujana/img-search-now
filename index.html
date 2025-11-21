@@ -2,131 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Image Search App - Neon Glass</title>
-
-    <!-- CSS -->
+    <title>Image Search App</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- =============================
-            LOGIN PAGE
-================================ -->
-<div id="login-page" class="page active">
+<!-- ==========================================
+                 LOGIN PAGE
+========================================== -->
+<div id="login-page" class="page">
     <h1>Login</h1>
 
-    <input id="login-user" placeholder="Username">
-    <input id="login-pass" type="password" placeholder="Password">
+    <input id="login-user" placeholder="Username"><br>
+    <input id="login-pass" type="password" placeholder="Password"><br>
 
-    <button onclick="login()">Login</button>
-
-    <p>No account?
-        <span onclick="showCreate()" class="link">Create Account</span>
-    </p>
-
-    <p>Or continue as
-        <span onclick="guest()" class="link">Guest</span>
-    </p>
+    <button onclick="login()">Login</button><br>
+    <button onclick="guest()">Continue as Guest</button><br>
+    <button onclick="showCreate()">Create Account</button>
 </div>
 
-<!-- =============================
-        CREATE ACCOUNT PAGE
-================================ -->
+
+<!-- ==========================================
+             CREATE ACCOUNT PAGE
+========================================== -->
 <div id="create-page" class="page hidden">
     <h1>Create Account</h1>
 
-    <input id="create-user" placeholder="New Username">
-    <input id="create-pass" type="password" placeholder="New Password">
+    <input id="create-user" placeholder="New Username"><br>
+    <input id="create-pass" type="password" placeholder="New Password"><br>
 
-    <button onclick="createAccount()">Create</button>
-
-    <p>
-        <span onclick="showLogin()" class="link">Back to Login</span>
-    </p>
+    <button onclick="createAccount()">Create</button><br>
+    <button onclick="showLogin()">Back</button>
 </div>
 
-<!-- =============================
-          BANNED PAGE
-================================ -->
+
+<!-- ==========================================
+                BANNED PAGE
+========================================== -->
 <div id="banned-page" class="page hidden">
     <h1>You Are Banned</h1>
     <p id="ban-msg"></p>
+    <button onclick="showLogin()">Back</button>
 </div>
 
-<!-- =============================
-            LOBBY PAGE
-================================ -->
+
+<!-- ==========================================
+                   LOBBY
+========================================== -->
 <div id="lobby" class="page hidden">
+    <h1>Lobby</h1>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <span id="top-username" class="profile-btn" onclick="openProfile()">
-            User
-        </span>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+    <p>Logged in as: <b id="top-username"></b></p>
+
+    <!-- Admin Panel Button -->
+    <button onclick="show('admin-page')" id="admin-panel" class="hidden">
+        Admin Panel
+    </button>
+
+    <!-- Upload Area -->
+    <h2>Upload Image</h2>
+    <div id="drop-zone" class="drop-zone">
+        Drag & Drop image here
     </div>
-
-    <!-- ADMIN PANEL -->
-    <div id="admin-panel" class="admin-box hidden">
-        <h2>Admin Panel</h2>
-
-        <input id="ban-user" placeholder="Ban username">
-        <input id="ban-reason" placeholder="Reason">
-
-        <button onclick="banUser()">Ban User</button>
-
-        <hr>
-
-        <input id="unban-user" placeholder="Unban username">
-        <button onclick="unbanUser()">Unban User</button>
-    </div>
-
-    <h1>Image Search</h1>
-
-    <input id="search-box" placeholder="Search image">
-    <button onclick="searchImage()">Search</button>
-
-    <!-- Upload Section -->
-    <h3>Upload Image</h3>
 
     <input type="file" id="file-input" onchange="uploadFromInput()">
 
-    <div id="drop-zone">Drag & Drop Image Here</div>
+    <img id="preview" class="hidden upload-preview">
 
-    <img id="preview" class="hidden">
+    <hr>
 
-    <!-- SEARCH RESULTS -->
+    <h2>Search Images</h2>
+    <input id="search-box" placeholder="Search...">
+    <button onclick="searchImage()">Search</button>
+
     <div id="results"></div>
 
-    <button class="profile-open" onclick="openProfile()">Open Profile</button>
+    <hr>
+
+    <button onclick="openProfile()">My Profile</button><br>
+    <button onclick="logout()">Logout</button>
 </div>
 
-<!-- =============================
-          PROFILE PAGE
-================================ -->
+
+<!-- ==========================================
+                 ADMIN PAGE
+========================================== -->
+<div id="admin-page" class="page hidden">
+    <h1>Admin Panel</h1>
+
+    <h3>Ban User</h3>
+    <input id="ban-user" placeholder="Username">
+    <input id="ban-reason" placeholder="Reason">
+    <button onclick="banUser()">Ban</button>
+
+    <h3>Unban User</h3>
+    <input id="unban-user" placeholder="Username">
+    <button onclick="unbanUser()">Unban</button>
+
+    <br><br>
+    <button onclick="show('lobby')">Back</button>
+</div>
+
+
+<!-- ==========================================
+               PROFILE PAGE
+========================================== -->
 <div id="profile-page" class="page hidden">
-
-    <div class="top-bar">
-        <span class="profile-btn" onclick="openLobby()">← Back</span>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
     <h1>Profile</h1>
 
-    <img id="profile-avatar" class="avatar">
-
+    <img id="profile-avatar" class="profile-avatar">
     <h2 id="profile-name"></h2>
     <p id="profile-joined"></p>
     <p id="profile-uploads"></p>
 
-    <h3>Your Gallery</h3>
-
     <div id="profile-gallery"></div>
 
+    <button onclick="show('lobby')">Back</button>
 </div>
 
 
-<!-- JS -->
+
+<!-- ==========================================
+                SCRIPT FILE
+========================================== -->
 <script src="script.js"></script>
 
 </body>
