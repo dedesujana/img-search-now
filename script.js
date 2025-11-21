@@ -12,7 +12,7 @@ let users = {
     }
 };
 
-let images = []; // semua gambar
+let images = []; 
 let currentUser = null;
 
 /* ==========================================
@@ -236,11 +236,11 @@ function processImage(file) {
 function deleteImage(id) {
     images = images.filter(img => img.id !== id);
     searchImage();
-    openProfile(); // refresh gallery
+    openProfile();
 }
 
 /* ==========================================
-            INLINE EDIT TITLE
+         INLINE EDIT IMAGE TITLE
 ========================================== */
 
 function editTitle(el, id) {
@@ -251,7 +251,6 @@ function editTitle(el, id) {
     input.style.width = "80%";
 
     el.replaceWith(input);
-
     input.focus();
 
     input.addEventListener("keyup", e => {
@@ -300,9 +299,4 @@ function openProfile() {
             </div>
         `;
     });
-}
-
-function openLobby() {
-    show("lobby");
-    document.getElementById("top-username").innerText = currentUser;
 }
