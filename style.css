@@ -4,56 +4,47 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4A90E2, #8E44AD);
+    background: linear-gradient(135deg, #0a0f24, #111c44, #0e1b30);
+    background-size: 400% 400%;
+    animation: neonBG 15s ease infinite;
     color: white;
     text-align: center;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.8s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.97); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes neonBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* ============================
-            PAGE
-============================ */
 .page {
     display: none;
     width: 90%;
-    max-width: 430px;
+    max-width: 450px;
     padding: 25px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(12px);
     border-radius: 22px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,120,255,0.4);
+    animation: fadeIn 0.5s ease;
 }
 
 .active {
     display: block;
 }
 
-/* ============================
-         HEADERS / TEXT
-============================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 h1, h2 {
-    text-shadow: 0 3px 10px rgba(0,0,0,0.3);
-}
-
-p {
-    color: #f8f8f8;
-    font-size: 15px;
-    opacity: 0.9;
-}
-
-.link {
-    text-decoration: underline;
-    cursor: pointer;
-    color: #ffeaea;
+    text-shadow: 0 0 12px rgba(0,150,255,0.8);
+    letter-spacing: 1px;
 }
 
 /* ============================
@@ -67,13 +58,15 @@ input {
     border: none;
     outline: none;
     font-size: 16px;
+    background: rgba(255,255,255,0.14);
+    color: white;
+    backdrop-filter: blur(3px);
     transition: 0.2s;
-    background: rgba(255,255,255,0.8);
 }
 
 input:focus {
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid #3cbaff;
+    box-shadow: 0 0 8px #3cbaff;
 }
 
 /* ============================
@@ -86,77 +79,141 @@ button {
     border-radius: 12px;
     border: none;
     cursor: pointer;
-    background: #ffffffcc;
-    backdrop-filter: blur(6px);
+    background: rgba(0,120,255,0.3);
+    color: white;
     font-size: 17px;
     font-weight: bold;
     transition: 0.2s;
-    box-shadow: 0 5px 14px rgba(0,0,0,0.3);
+    box-shadow: 0 0 16px rgba(0,150,255,0.3);
 }
 
 button:hover {
-    background: white;
-    transform: translateY(-4px);
-    box-shadow: 0 7px 16px rgba(0,0,0,0.35);
+    background: rgba(0,120,255,0.6);
+    transform: scale(1.03);
+    box-shadow: 0 0 22px rgba(0,150,255,0.7);
 }
 
 /* ============================
-        DROP ZONE (UPLOAD)
+       LINKS & TEXT
+============================ */
+.link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #7fbfff;
+}
+
+/* ============================
+          DROP ZONE
 ============================ */
 #drop-zone {
     width: 100%;
     height: 180px;
-    border: 2px dashed rgba(255,255,255,0.6);
+    border: 2px dashed rgba(0,150,255,0.6);
     border-radius: 16px;
     margin-top: 15px;
     line-height: 180px;
     font-size: 18px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.07);
     transition: 0.3s;
 }
 
 #drop-zone:hover {
-    border-color: white;
-    transform: scale(1.03);
+    border-color: #3cbaff;
+    box-shadow: 0 0 14px rgba(0,150,255,0.8);
+    transform: scale(1.02);
 }
 
 #preview {
     width: 220px;
     margin-top: 20px;
     border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    box-shadow: 0 0 20px rgba(0,150,255,0.8);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ============================
-        IMAGE RESULTS
+       RESULTS & GALLERY
 ============================ */
 #results img {
     width: 260px;
     margin-top: 20px;
     border-radius: 14px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
     animation: pop 0.3s ease;
+    box-shadow: 0 0 20px rgba(0,150,255,0.5);
 }
 
 @keyframes pop {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* PROFILE GALLERY */
+#profile-gallery {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+#profile-gallery img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 14px rgba(0,150,255,0.5);
+    transition: 0.2s;
+}
+
+#profile-gallery img:hover {
+    transform: scale(1.05);
 }
 
 /* ============================
-        ADMIN PANEL STYLE
+       PROFILE AVATAR
+============================ */
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 18px rgba(0,150,255,0.7);
+    margin-bottom: 10px;
+}
+
+/* ============================
+         TOP BAR
+============================ */
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-btn {
+    cursor: pointer;
+    font-size: 18px;
+    color: #bcdcff;
+    text-shadow: 0 0 6px rgba(0,150,255,0.8);
+}
+
+.logout-btn {
+    width: fit-content;
+}
+
+/* ============================
+       ADMIN PANEL
 ============================ */
 .admin-box {
-    background: rgba(255,0,0,0.25);
-    padding: 14px;
+    padding: 16px;
     border-radius: 14px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+    background: rgba(255,0,0,0.1);
+    border: 1px solid rgba(255,0,0,0.4);
+    box-shadow: 0 0 18px rgba(255,0,0,0.4);
 }
 
 /* ============================
-        HIDDEN CLASS
+           HIDING
 ============================ */
 .hidden {
     display: none;
